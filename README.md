@@ -22,5 +22,5 @@ La aplicación esta creada con El lenguaje de programacion de **JAVASCRIPT** usa
 3. Corre el proyecto
 
    ```bash
-    npx i o npm install
+    npx start
    ```

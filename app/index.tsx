@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useEffect, useState } from "react"
-import { FlatList, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { FlatList, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Dimensions, StyleSheet } from "react-native"
 import uuid from 'react-native-uuid';
 import { AntDesign } from '@expo/vector-icons';
 import { StatusBar } from "native-base";
@@ -69,20 +69,25 @@ export default function ScreenPrinciapl() {
     }, [])
     return (
         <>
-        <StatusBar />
-            <View className="max-w-[90%] my-0 mx-auto">
-                <Text className="text-lg font-semibold mt-5 text-center mb-5">Agregar tarea</Text>
-                <View className="items-center justify-center">
-                    <View className="flex-row items-center gap-3 ">
-                        <TextInput value={form.input} onChangeText={handleChange} className="w-[75%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                        <TouchableOpacity className="bg-blue-400 p-2 text-center rounded-lg">
-                            <Text onPress={saveTarea} className="font-semibold text-center text-blue-100">Agregar</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+            <SafeAreaView>
+                <View className="h-screen">
 
-                <Text className="text-lg font-semibold mt-5">Lista de tareas</Text>
-                <SafeAreaView>
+                <StatusBar />
+                <View className="max-w-[90%] my-0 mx-auto">
+                    <Text className="text-lg font-semibold mt-5 text-center mb-5">Agregar tarea</Text>
+                    <View className="items-center justify-center">
+                        <View className="flex-row items-center gap-3 ">
+                            <TextInput value={form.input} onChangeText={handleChange} className="w-[75%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            <TouchableOpacity className="bg-blue-400 p-2 text-center rounded-lg">
+                                <Text onPress={saveTarea} className="font-semibold text-center text-blue-100">Agregar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    <Text className="text-lg font-semibold mt-5">Lista de tareas</Text>
+                    {!data && <Text className="text-center mt-5">No hay tareas</Text>}
+            <SafeAreaView>
+
                     <FlatList
                         data={data}
                         renderItem={({ item }: any) => {
@@ -124,8 +129,20 @@ export default function ScreenPrinciapl() {
                             )
                         }}
                     />
-                </SafeAreaView>
-            </View>
+            </SafeAreaView>
+
+                </View>
+                </View>
+
+            </SafeAreaView>
         </>
     )
 }
+
+const { height } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+    scrollViewContent: {
+        height: height,
+    },
+})
